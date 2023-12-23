@@ -31,18 +31,21 @@ cargo run -- show
 ```
 
 There is a great site to test this; [2fas.com](https://2fas.com/check-token/).
+![clinew](https://raw.githubusercontent.com/hkey0/rust-cli-totp/main/images/2fas.png)
 All you need to do is take a screenshot of the QR code and run the code with new flag:
 
 ```bash
 cargo run -- new
 ```
 
-This is what you are likely to see:
-CLI RESIM 111
+This is what you are likely to see:<br />
+![clinew](https://raw.githubusercontent.com/hkey0/rust-cli-totp/main/images/clinew.png)
 
 And now just run the `show command`:
 ```bash
 cargo run -- show
 ```
+![clinew](https://raw.githubusercontent.com/hkey0/rust-cli-totp/main/images/samecli.png)
+![clinew](https://raw.githubusercontent.com/hkey0/rust-cli-totp/main/images/same1.png)
 
 Here it worked!
