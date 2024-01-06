@@ -49,3 +49,8 @@ cargo run -- show
 ![clinew](https://raw.githubusercontent.com/hkey0/rust-cli-totp/main/images/same1.png)
 
 Here it worked!
+
+
+### TODO
+
+- [] GUI
