@@ -39,9 +39,9 @@ fn main() {
             let secrets = dbfuncs::read_secrets();
 
             let mut password = String::new();
-            print!("Enter a password (same with others): ");
+            print!("Enter a password: ");
             let _ = stdout().flush();
-            stdin().read_line(&mut password).expect("Did not enter a correct string.");
+            stdin().read_line(&mut password).expect("Did not enter a valid string.");
 
             let padded_password: [u8; 16] = crypto_funcs::pad_password(password.as_bytes().to_vec());
 
