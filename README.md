@@ -53,4 +53,4 @@ Here it worked!
 
 ### TODO
 
-- [] GUI
+- [ ] GUI
