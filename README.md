@@ -54,3 +54,4 @@ Here it worked!
 ### TODO
 
 - [ ] GUI
+- [ ] Support Longer Passwords
