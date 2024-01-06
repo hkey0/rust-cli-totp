@@ -12,7 +12,7 @@ pub struct Service {
 
 
 pub fn read_secrets() -> Vec<Service> {
-    let file_content = fs::read_to_string("./files/secrets.json").unwrap();
+    let file_content: String = fs::read_to_string("./files/secrets.json").unwrap();
     let json: Vec<Service>= 
         serde_json::from_str(&file_content).expect("JSON was not well-formatted");
 
@@ -22,7 +22,7 @@ pub fn read_secrets() -> Vec<Service> {
 
 pub fn add_new_secret(service_name: String, secret: Vec<u8>) -> io::Result<()> {
     // JSON dosyasını oku
-    let file_content = fs::read_to_string("./files/secrets.json")?;
+    let file_content: String = fs::read_to_string("./files/secrets.json")?;
     let mut services: Vec<Service> = serde_json::from_str(&file_content)?;
 
     services.push(Service {
@@ -31,8 +31,8 @@ pub fn add_new_secret(service_name: String, secret: Vec<u8>) -> io::Result<()> {
     });
 
     // Güncellenmiş veriyi JSON olarak dosyaya yaz
-    let json = serde_json::to_string_pretty(&services)?;
-    let mut file = File::create("./files/secrets.json")?;
+    let json: String = serde_json::to_string_pretty(&services)?;
+    let mut file: File = File::create("./files/secrets.json")?;
     file.write_all(json.as_bytes())?;
 
     Ok(())

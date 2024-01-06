@@ -15,14 +15,14 @@ fn main() {
         process::exit(1);
     }
 
-    let command = &args[1];
+    let command: &String = &args[1];
 
     match command.as_str() {
         "new" => {
             println!("Reading QR from clipboard.");
-            let data = totp_client::get_qr_from_clipboard();
+            let data: Option<(String, String)> = totp_client::get_qr_from_clipboard();
             println!("Data received: {:?}", data);
-            let mut password = String::new();
+            let mut password: String = String::new();
             print!("Enter a password (same with others): ");
             let _ = stdout().flush();
             stdin().read_line(&mut password).expect("Did not enter a correct string.");
@@ -30,7 +30,7 @@ fn main() {
             if password.len() > 16 {println!("Max password length is 16.");return;}
             if let Some((service, code)) = data {
                 let padded_password: [u8; 16] = crypto_funcs::pad_password(password.as_bytes().to_vec());
-                let encrypted_code = crypto_funcs::encrypt_with_aes(padded_password, &code);
+                let encrypted_code: Vec<u8> = crypto_funcs::encrypt_with_aes(padded_password, &code);
                 let _ = dbfuncs::add_new_secret(service, encrypted_code);
             }
 
@@ -47,8 +47,8 @@ fn main() {
 
             for svc in secrets {
                 
-                let decrpt = crypto_funcs::decrypt_with_aes(padded_password, svc.secret);
-                let code = totp_client::generate_otp(decrpt);
+                let decrpt: String = crypto_funcs::decrypt_with_aes(padded_password, svc.secret);
+                let code: u128 = totp_client::generate_otp(decrpt);
                 println!("Code for {} is {}", svc.service, code)
             }
         },

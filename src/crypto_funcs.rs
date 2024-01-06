@@ -5,7 +5,7 @@ type Aes128EcbDec = ecb::Decryptor<aes::Aes128>;
 
 
 pub fn decrypt_with_aes(key: [u8; 16], mut buf: Vec<u8>) -> String {
-    let pt = Aes128EcbDec::new(&key.into())
+    let pt: &[u8] = Aes128EcbDec::new(&key.into())
         .decrypt_padded_mut::<Pkcs7>(&mut buf)
         .unwrap();
 
@@ -14,11 +14,11 @@ pub fn decrypt_with_aes(key: [u8; 16], mut buf: Vec<u8>) -> String {
 
 
 pub fn encrypt_with_aes(key: [u8; 16], plaintext: &str) -> Vec<u8> {
-    let plaintext = plaintext.as_bytes();
-    let pt_len = plaintext.len();
+    let plaintext: &[u8] = plaintext.as_bytes();
+    let pt_len: usize = plaintext.len();
     let mut buf: [u8; 1000] = [0u8; 1000];
     buf[..pt_len].copy_from_slice(&plaintext);
-    let ct = Aes128EcbEnc::new(&key.into())
+    let ct: &[u8] = Aes128EcbEnc::new(&key.into())
         .encrypt_padded_mut::<Pkcs7>(&mut buf, pt_len)
         .unwrap();
 
@@ -27,7 +27,7 @@ pub fn encrypt_with_aes(key: [u8; 16], plaintext: &str) -> Vec<u8> {
 
 
 pub fn pad_password(key: Vec<u8>) -> [u8; 16] {
-    let mut new_vec = key.to_vec();
+    let mut new_vec: Vec<u8> = key.to_vec();
     
     while new_vec.len() < 16 {
         new_vec.push(31);
